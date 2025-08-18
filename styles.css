@@ -1,0 +1,616 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background: #1a1a2e;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: #ffffff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+    font-size: 42px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.header-text {
+    white-space: nowrap;
+}
+
+.logo {
+    width: 45px;
+    height: 45px;
+    margin-right: 20px;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.logo::before {
+    content: '📈';
+    font-size: 36px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.main-card {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 24px;
+    padding: 40px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.input-section {
+    margin-bottom: 30px;
+}
+
+.section-title {
+    font-size: 18px;
+    color: #e5e7eb;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-align: center;
+    line-height: 1.4;
+}
+
+.sparkle {
+    color: #fbbf24;
+}
+
+.input-wrapper {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.ticker-input {
+    flex: 1;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    color: #ffffff;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    /* -webkit-appearance: none; */
+}
+
+.ticker-input::placeholder {
+    color: #4b5563;
+}
+
+.ticker-input:focus {
+    outline: none;
+    border-color: rgba(74, 222, 128, 0.5);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.add-btn {
+    width: 56px;
+    height: 56px;
+    background: #4ade80;
+    border: none;
+    border-radius: 14px;
+    color: #1a1a2e;
+    font-size: 28px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.add-btn:hover {
+    background: #22c55e;
+    transform: scale(1.05);
+}
+
+.add-btn:active {
+    transform: scale(0.95);
+}
+
+.ticker-display {
+    min-height: 80px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.ticker-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+}
+
+.ticker-chip {
+    padding: 10px 18px;
+    background: #6680f0;
+    border: 1px solid rgba(74, 160, 222, 0.4);
+    border-radius: 25px;
+    color: #ffffff;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    animation: slideIn 0.3s ease;
+}
+
+.ticker-chip .remove {
+    cursor: pointer;
+    font-size: 18px;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.ticker-chip .remove:hover {
+    opacity: 1;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.empty-state {
+    color: #4b5563;
+    text-align: center;
+}
+
+.generate-btn {
+    width: 100%;
+    padding: 18px;
+    background: rgba(74, 222, 128, 0.8);
+    border: none;
+    border-radius: 14px;
+    color: #1a1a2e;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.generate-btn:hover:not(:disabled) {
+    background: #4ade80;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(74, 222, 128, 0.25);
+}
+
+.generate-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.generate-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: rgba(74, 222, 128, 0.3);
+}
+
+.generate-btn.loading {
+    background: linear-gradient(135deg, #4ade80, #22c55e);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+.footer {
+    text-align: center;
+    margin-top: 30px;
+    color: #4b5563;
+    font-size: 14px;
+    padding: 0 20px;
+}
+
+.demo-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.demo-btn {
+    padding: 10px 16px;
+    background: transparent;
+    border: 1px solid #6680f0;
+    border-radius: 8px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+    white-space: nowrap;
+}
+
+.demo-btn:hover {
+    background: rgba(74, 222, 128, 0.1);
+}
+
+.demo-btn:active {
+    transform: scale(0.95);
+}
+
+.ai-report-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    padding: 20px;
+    animation: fadeIn 0.3s ease;
+    overflow-y: auto;
+}
+
+.ai-report-modal.active {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 50px;
+}
+
+.modal-content {
+    background: #1e1e2e;
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 600px;
+    width: 100%;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    border: 1px solid rgba(74, 222, 128, 0.3);
+    position: relative;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #4ade80;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    color: #6b7280;
+    font-size: 28px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.close-modal:hover {
+    color: #ffffff;
+}
+
+.report-content {
+    color: #e5e7eb;
+    line-height: 1.6;
+}
+
+.report-section {
+    margin-bottom: 20px;
+}
+
+.report-section p {
+    margin-bottom: 15px;
+}
+
+.report-section h3 {
+    color: #4ade80;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Tablet Styles (768px and below) */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+
+    .header {
+        font-size: 32px;
+        margin-bottom: 30px;
+    }
+
+    .logo {
+        width: 40px;
+        height: 40px;
+        margin-right: 15px;
+    }
+
+    .logo::before {
+        font-size: 30px;
+    }
+
+    .main-card {
+        padding: 30px 25px;
+        border-radius: 20px;
+    }
+
+    .section-title {
+        font-size: 16px;
+        padding: 0 10px;
+    }
+
+    .modal-content {
+        padding: 25px;
+        max-height: calc(100vh - 60px);
+    }
+
+    .modal-title {
+        font-size: 20px;
+    }
+}
+
+/* Mobile Styles (480px and below) */
+@media screen and (max-width: 480px) {
+    body {
+        padding: 10px;
+        align-items: flex-start;
+        padding-top: 20px;
+    }
+
+    .container {
+        width: 100%;
+        margin-top: 3rem;
+    }
+
+    .header {
+        font-size: 24px;
+        margin-bottom: 20px;
+        flex-wrap: nowrap;
+    }
+
+    .header-text {
+        font-size: 24px;
+    }
+
+    .logo {
+        width: 35px;
+        height: 35px;
+        margin-right: 10px;
+    }
+
+    .logo::before {
+        font-size: 24px;
+    }
+
+    .main-card {
+        padding: 20px;
+        border-radius: 16px;
+    }
+
+    .section-title {
+        font-size: 14px;
+        margin-bottom: 15px;
+        line-height: 1.5;
+    }
+
+    .input-wrapper {
+        gap: 8px;
+        margin-bottom: 15px;
+    }
+
+    .ticker-input {
+        padding: 14px 16px;
+        font-size: 16px;
+        border-radius: 12px;
+    }
+
+    .add-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+        border-radius: 12px;
+    }
+
+    .ticker-display {
+        min-height: 70px;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .ticker-chip {
+        padding: 8px 14px;
+        font-size: 14px;
+    }
+
+    .demo-buttons {
+        gap: 8px;
+        margin: 15px 0;
+    }
+
+    .demo-btn {
+        padding: 8px 12px;
+        font-size: 13px;
+        flex: 0 0 calc(50% - 4px);
+    }
+
+    .generate-btn {
+        padding: 16px;
+        font-size: 15px;
+        border-radius: 12px;
+    }
+
+    .footer {
+        font-size: 12px;
+        margin-top: 20px;
+    }
+
+    .ai-report-modal {
+        padding: 10px;
+    }
+
+    .ai-report-modal.active {
+        padding-top: 20px;
+        align-items: center;
+    }
+
+    .modal-content {
+        padding: 20px;
+        border-radius: 16px;
+        max-height: calc(100vh - 40px);
+        margin: 0 auto;
+    }
+
+    .modal-header {
+        margin-bottom: 15px;
+    }
+
+    .modal-title {
+        font-size: 18px;
+    }
+
+    .close-modal {
+        font-size: 24px;
+        width: 35px;
+        height: 35px;
+    }
+
+    .report-section h3 {
+        font-size: 16px;
+    }
+
+    .report-section p {
+        font-size: 14px;
+        margin-bottom: 12px;
+    }
+}
+
+/* Very small mobile devices (320px and below) */
+@media screen and (max-width: 320px) {
+    .header {
+        font-size: 20px;
+    }
+
+    .header-text {
+        font-size: 20px;
+    }
+
+    .logo {
+        width: 30px;
+        height: 30px;
+    }
+
+    .logo::before {
+        font-size: 20px;
+    }
+
+    .section-title {
+        font-size: 13px;
+    }
+
+    .demo-btn {
+        font-size: 12px;
+        padding: 7px 10px;
+    }
+}
+
+/* Landscape orientation adjustments */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+    body {
+        padding: 10px;
+    }
+
+    .header {
+        margin-bottom: 15px;
+        font-size: 24px;
+    }
+
+    .main-card {
+        padding: 15px 20px;
+    }
+
+    .section-title {
+        margin-bottom: 10px;
+    }
+
+    .ticker-display {
+        min-height: 60px;
+        padding: 10px;
+        margin-bottom: 15px;
+    }
+
+    .ai-report-modal.active {
+        padding-top: 10px;
+    }
+
+    .modal-content {
+        max-height: calc(100vh - 20px);
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .add-btn,
+    .demo-btn,
+    .generate-btn,
+    .close-modal,
+    .ticker-chip .remove {
+        transition: none;
+    }
+
+    .add-btn:hover,
+    .demo-btn:hover,
+    .generate-btn:hover {
+        transform: none;
+    }
+}

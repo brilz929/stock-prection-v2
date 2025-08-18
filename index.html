@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+    <title>AI Stock Predictions</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo"></div>
+            <span class="header-text">AI Stock Predictions</span>
+        </div>
+
+        <div class="main-card">
+            <!-- Input Section -->
+            <div class="input-section">
+                <div class="section-title">
+                    Add up to 3 stock tickers to get AI predictions for up to 30 days
+                    <span class="sparkle">✨</span>
+                </div>
+                <div class="input-wrapper">
+                    <input type="text" class="ticker-input" id="tickerInput" placeholder="AAPL, TSLA, NVDA..." maxlength="10">
+                    <button class="add-btn" id="addBtn">+</button>
+                </div>
+                <div class="ticker-display" id="tickerDisplay">
+                    <div class="ticker-list" id="tickerList" style="display: none;"></div>
+                    <div class="empty-state" id="emptyState">Your tickers will appear here...</div>
+                </div>
+                <div class="demo-buttons">
+                    <button class="demo-btn">+ AAPL</button>
+                    <button class="demo-btn">+ TSLA</button>
+                    <button class="demo-btn">+ NVDA</button>
+                    <button class="demo-btn">Demo Report</button>
+                </div>
+                <button class="generate-btn" id="generateBtn" disabled>GENERATE AI REPORT</button>
+            </div>
+        </div>
+        <div class="footer">
+            &copy; 2025 AI Stock Predictions • This is not real financial advice!
+        </div>
+    </div>
+
+    <!-- AI Report Modal -->
+    <div class="ai-report-modal" id="aiReportModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">🤖 AI Analysis Report</h2>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="report-content" id="reportContent">
+                <!-- Report content will be inserted here -->
+            </div>
+        </div>
+    </div>  
+
+    <script type="module" src="index.js"></script>
+</body>
+</html>
