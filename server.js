@@ -1,4 +1,16 @@
-require('dotenv').config();
+// Load environment variables first
+require('dotenv').config({ path: '.env' });
+
+// Verify required environment variables
+const requiredEnvVars = ['POLYGON_API_KEY', 'ANTHROPIC_API_KEY'];
+const missingVars = requiredEnvVars.filter(varName => !process.env[varName]);
+
+if (missingVars.length > 0) {
+  console.error('Missing required environment variables:', missingVars.join(', '));
+  console.log('Please check your .env file and ensure all required variables are set.');
+  process.exit(1);
+}
+
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
@@ -125,7 +137,13 @@ app.post('/api/analyze', async (req, res) => {
       }
     });
 
+// Test endpoint
+app.get('/test', (req, res) => {
+  res.json({ message: 'Hello World!', status: 'Server is working' });
+});
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+  console.log(`Test endpoint: http://localhost:${PORT}/test`);
 });

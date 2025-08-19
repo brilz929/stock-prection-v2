@@ -4,24 +4,29 @@ services:
     name: stock-prediction-backend
     env: node
     nodeVersion: 18.17.1
-    # Only include backend files
+    # Include all necessary files
     include:
       - backend-package.json
       - server.js
       - utils/
+      - .env.example
     buildCommand: |
       echo "Node version: $(node -v)"
       echo "NPM version: $(npm -v)"
       # Rename backend-package.json to package.json for installation
       mv backend-package.json package.json
+      # Copy .env.example to .env (secrets will be set in Render dashboard)
+      cp .env.example .env
       npm ci --production
-    startCommand: npm start
+    startCommand: node server.js
     envVars:
       - key: PORT
         value: 10000
       - key: NODE_ENV
         value: production
       - key: POLYGON_API_KEY
+        sync: false  # Set this in the Render dashboard
+      - key: ANTHROPIC_API_KEY
         sync: false  # Set this in the Render dashboard
     plan: free
     region: oregon  # Or choose a region closer to you
