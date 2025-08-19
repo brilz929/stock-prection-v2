@@ -1,9 +1,21 @@
+# Backend service
 services:
   - type: web
     name: stock-prediction-backend
     env: node
-    buildCommand: npm install
-    startCommand: node server.js
+    nodeVersion: 18.17.1
+    # Only include backend files
+    include:
+      - backend-package.json
+      - server.js
+      - utils/
+    buildCommand: |
+      echo "Node version: $(node -v)"
+      echo "NPM version: $(npm -v)"
+      # Rename backend-package.json to package.json for installation
+      mv backend-package.json package.json
+      npm ci --production
+    startCommand: npm start
     envVars:
       - key: PORT
         value: 10000
