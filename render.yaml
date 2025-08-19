@@ -2,17 +2,15 @@ services:
   - type: web
     name: stock-prediction-backend
     env: node
+    root: backend  # Point to the backend directory
     buildCommand: npm install
-    startCommand: node server.js
+    startCommand: npm start
     envVars:
       - key: PORT
         value: 10000
       - key: NODE_ENV
         value: production
-    # Add your other environment variables here:
-    # - key: POLYGON_API_KEY
-    #   sync: false  # This means you'll set it in the Render dashboard
-    # - key: ANTHROPIC_API_KEY
-    #   sync: false
+      - key: POLYGON_API_KEY
+        sync: false  # Set this in the Render dashboard
     plan: free
     region: oregon  # Or choose a region closer to you
