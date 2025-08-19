@@ -2,9 +2,8 @@ services:
   - type: web
     name: stock-prediction-backend
     env: node
-    root: ./backend  # Point to the backend directory
-    buildCommand: npm install
-    startCommand: npm start
+    buildCommand: cd backend && npm install
+    startCommand: node backend/server.js
     envVars:
       - key: PORT
         value: 10000
