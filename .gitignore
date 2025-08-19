@@ -19,4 +19,10 @@ npm-debug.log*
 
 # Build/dist folders
 dist/
+
+# Vite cache
+.vite/
+
+# Local Netlify folder
+.netlify/
 build/

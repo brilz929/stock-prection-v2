@@ -1,4 +1,7 @@
 import { dates } from './utils/dates.js';
+
+// Using a direct constant for now - we'll make this configurable via build process
+const API_BASE_URL = 'http://localhost:3000';
         
 // Stock app functionality
 let tickers = [];
@@ -74,7 +77,7 @@ function updateGenerateButton() {
     generateBtn.disabled = tickers.length === 0;
 }
 
-async function generateReport() {
+async function generateReport(isDemo = false) {
     if (tickers.length === 0) return;
     
     generateBtn.classList.add('loading');
@@ -90,11 +93,14 @@ async function generateReport() {
         for (const ticker of tickers) {
             try {
                 // Fetch stock data from Polygon API via your backend
-                const stockResponse = await fetch(`/api/stock/${ticker}`);
+                const stockResponse = await fetch(`${API_BASE_URL}/api/stock/${ticker}`);
+                if (!stockResponse.ok) {
+                    throw new Error(`Failed to fetch data for ${ticker}: ${stockResponse.status}`);
+                }
                 const stockData = await stockResponse.json();
                 
                 // Get AI analysis from Anthropic API via your backend
-                const analysisResponse = await fetch('/api/analyze', {
+                const analysisResponse = await fetch(`${API_BASE_URL}/api/analyze`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -198,17 +204,31 @@ function loadDemoStock(ticker) {
     }
 }
 
-function generateDemoReport() {
-    if (tickers.length === 0) {
-        ['AAPL', 'TSLA', 'NVDA'].forEach(ticker => {
-            if (tickers.length < 3) {
-                tickers.push(ticker);
-            }
-        });
-        updateTickerDisplay();
-        updateGenerateButton();
+async function generateDemoReport() {
+    try {
+        // Add demo tickers if none selected
+        if (tickers.length === 0) {
+            ['AAPL', 'TSLA', 'NVDA'].forEach(ticker => {
+                if (tickers.length < 3) {
+                    tickers.push(ticker);
+                }
+            });
+            updateTickerDisplay();
+            updateGenerateButton();
+        }
+        
+        // Use the main report generation but with demo flag
+        const demoReport = await generateReport(true);
+        return demoReport;
+    } catch (error) {
+        console.error('Error in demo report:', error);
+        return {
+            ticker: 'DEMO',
+            summary: 'Demo analysis is currently unavailable.',
+            technical: 'Please try again later or check your API key.',
+            recommendation: 'ERROR - Could not generate demo report.'
+        };
     }
-    generateReport();
 }
 
 // // Time pill functionality
