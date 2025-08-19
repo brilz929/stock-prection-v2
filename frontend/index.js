@@ -1,7 +1,7 @@
 import { dates } from './utils/dates.js';
 
-// Use environment variable if available, otherwise default to localhost
-const API_BASE_URL = window.API_BASE_URL || 'http://localhost:3000';
+// Use environment variable if available, otherwise use the deployed backend
+const API_BASE_URL = window.API_BASE_URL || 'https://stock-prection-v2.onrender.com';
         
 // Stock app functionality
 let tickers = [];
