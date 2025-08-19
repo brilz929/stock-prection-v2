@@ -1,7 +1,7 @@
 import { dates } from './utils/dates.js';
 
-// Using a direct constant for now - we'll make this configurable via build process
-const API_BASE_URL = 'http://localhost:3000';
+// Use environment variable with fallback to localhost for development
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
         
 // Stock app functionality
 let tickers = [];
