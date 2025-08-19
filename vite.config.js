@@ -7,6 +7,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
   server: {
     port: 3001,
+    host: '0.0.0.0', // Allow external connections
     proxy: {
       '/api': {
         target: 'http://localhost:3000',

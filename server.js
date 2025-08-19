@@ -2,11 +2,27 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
+const path = require('path');
 
 const app = express();
-app.use(cors());
+const PORT = process.env.PORT || 3000;
+
+// Enable CORS for all routes
+app.use(cors({
+  origin: [
+    'http://localhost:3001',
+    'https://ai-stock-prediction-scrimba.netlify.app',
+    'https://ai-stock-prediction-scrimba.netlify.app/'
+  ],
+  credentials: true
+}));
+
 app.use(express.json());
-app.use(express.static('.'));
+
+// Serve static files from the React app in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'dist')));
+}
 
 // Import dates
 const { dates }  = require('./utils/dates.js'); 
@@ -110,7 +126,6 @@ app.post('/api/analyze', async (req, res) => {
     });
 
 // Start the server
-const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

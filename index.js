@@ -1,7 +1,7 @@
 import { dates } from './utils/dates.js';
 
-// Using a direct constant for now - we'll make this configurable via build process
-const API_BASE_URL = 'http://localhost:3000';
+// Use environment variable if available, otherwise default to localhost
+const API_BASE_URL = window.API_BASE_URL || 'http://localhost:3000';
         
 // Stock app functionality
 let tickers = [];
