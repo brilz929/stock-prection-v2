@@ -1,7 +1,8 @@
 import { dates } from '../utils/dates.js';
 
 // Use environment variable if available, otherwise use the deployed backend
-const API_BASE_URL = window.API_BASE_URL || 'https://stock-prection-v2.onrender.com';
+const API_BASE_URL = 'https://stock-prection-v2.onrender.com';
+console.log('Using backend URL:', API_BASE_URL);
         
 // Stock app functionality
 let tickers = [];
