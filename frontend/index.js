@@ -93,7 +93,9 @@ async function generateReport(isDemo = false) {
         for (const ticker of tickers) {
             try {
                 // Fetch stock data from Polygon API via your backend
-                const stockResponse = await fetch(`${API_BASE_URL}/api/stock/${ticker}`, {
+                const stockUrl = `${API_BASE_URL}/api/stock/${ticker}`;
+                console.log('Fetching stock data from:', stockUrl);
+                const stockResponse = await fetch(stockUrl, {
                     method: 'GET',
                     mode: 'cors',
                     credentials: 'include',
