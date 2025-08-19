@@ -2,7 +2,7 @@ services:
   - type: web
     name: stock-prediction-backend
     env: node
-    root: backend  # Point to the backend directory
+    root: ./backend  # Point to the backend directory
     buildCommand: npm install
     startCommand: npm start
     envVars:
