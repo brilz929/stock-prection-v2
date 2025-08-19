@@ -93,16 +93,30 @@ async function generateReport(isDemo = false) {
         for (const ticker of tickers) {
             try {
                 // Fetch stock data from Polygon API via your backend
-                const stockResponse = await fetch(`${API_BASE_URL}/api/stock/${ticker}`);
+                const stockResponse = await fetch(`${API_BASE_URL}/api/stock/${ticker}`, {
+                    method: 'GET',
+                    mode: 'cors',
+                    credentials: 'include',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
                 if (!stockResponse.ok) {
-                    throw new Error(`Failed to fetch data for ${ticker}: ${stockResponse.status}`);
+                    const errorText = await stockResponse.text();
+                    console.error(`Error response for ${ticker}:`, errorText);
+                    throw new Error(`Failed to fetch data for ${ticker}: ${stockResponse.status} - ${errorText}`);
                 }
                 const stockData = await stockResponse.json();
                 
                 // Get AI analysis from Anthropic API via your backend
                 const analysisResponse = await fetch(`${API_BASE_URL}/api/analyze`, {
                     method: 'POST',
+                    mode: 'cors',
+                    credentials: 'include',
                     headers: {
+                        'Accept': 'application/json',
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({ 
