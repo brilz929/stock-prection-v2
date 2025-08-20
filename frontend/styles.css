@@ -77,10 +77,6 @@ body {
     line-height: 1.4;
 }
 
-.sparkle {
-    color: #fbbf24;
-}
-
 .input-wrapper {
     display: flex;
     gap: 10px;
