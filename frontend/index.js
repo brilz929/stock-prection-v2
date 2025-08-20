@@ -1,4 +1,4 @@
-import { dates } from '../utils/dates.js';
+import { dates } from './utils/dates.js';
 
 // Use environment variable if available, otherwise use the deployed backend
 const API_BASE_URL = 'https://stock-prection-v2.onrender.com';
