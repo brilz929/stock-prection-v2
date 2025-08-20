@@ -1,7 +1,8 @@
 [build]
-  base = "/"
-  command = "cd frontend && npm install && npm run build"
-  publish = "frontend/dist"
+  # No build command needed for this project
+  command = ""
+  # Publish the frontend directory directly
+  publish = "frontend/"
 
 [build.environment]
   NODE_VERSION = "18"
