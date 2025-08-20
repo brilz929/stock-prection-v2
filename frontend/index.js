@@ -41,6 +41,7 @@ function addTicker() {
         updateTickerDisplay();
         tickerInput.value = '';
         updateGenerateButton();
+        updateDemoButtons();
     }
 }
 
@@ -48,6 +49,24 @@ function removeTicker(ticker) {
     tickers = tickers.filter(t => t !== ticker);
     updateTickerDisplay();
     updateGenerateButton();
+    updateDemoButtons();
+}
+
+function updateDemoButtons() {
+    const demoButtons = document.querySelectorAll('.demo-btn');
+    const hasTickers = tickers.length > 0;
+    
+    demoButtons.forEach(btn => {
+        if (hasTickers) {
+            btn.disabled = true;
+            btn.style.opacity = '0.5';
+            btn.style.cursor = 'not-allowed';
+        } else {
+            btn.disabled = false;
+            btn.style.opacity = '1';
+            btn.style.cursor = 'pointer';
+        }
+    });
 }
 
 function updateTickerDisplay() {
@@ -200,17 +219,7 @@ function closeModal() {
     aiReportModal.classList.remove('active');
 }
 
-document.querySelectorAll('.demo-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        const btnText = e.target.textContent;
-        // This is the correct logic that will be triggered when you click the button
-        if (btnText.includes('AAPL')) loadDemoStock('AAPL');
-        else if (btnText.includes('TSLA')) loadDemoStock('TSLA');
-        else if (btnText.includes('NVDA')) loadDemoStock('NVDA');
-        // This line correctly calls the function for the 'Demo Report' button
-        else if (btnText.includes('Demo Report')) generateDemoReport(); 
-    });
-});
+// Demo button event listeners are at the bottom of the file
 
 
 function loadDemoStock(ticker) {
@@ -277,6 +286,7 @@ document.querySelector('.close-modal').addEventListener('click', closeModal);
 // Demo button event listeners
 document.querySelectorAll('.demo-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
+        if (e.target.disabled) return;
         const btnText = e.target.textContent;
         if (btnText.includes('AAPL')) loadDemoStock('AAPL');
         else if (btnText.includes('TSLA')) loadDemoStock('TSLA');
