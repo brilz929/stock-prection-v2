@@ -58,17 +58,22 @@ function removeTicker(ticker) {
 function updateDemoButtons() {
     const demoButtons = document.querySelectorAll('.demo-btn');
     const hasTickers = tickers.length > 0;
-    
+    const maxTickersReached = tickers.length >= 3;
+
     demoButtons.forEach(btn => {
-        if (hasTickers) {
-            btn.disabled = true;
-            btn.style.opacity = '0.5';
-            btn.style.cursor = 'not-allowed';
+        const btnText = btn.textContent;
+        let isDisabled = false;
+
+        if (btnText.includes('Demo Report')) {
+            isDisabled = hasTickers;
         } else {
-            btn.disabled = false;
-            btn.style.opacity = '1';
-            btn.style.cursor = 'pointer';
+            const ticker = btnText.replace('+ ', '').trim();
+            isDisabled = maxTickersReached || tickers.includes(ticker);
         }
+
+        btn.disabled = isDisabled;
+        btn.style.opacity = isDisabled ? '0.5' : '1';
+        btn.style.cursor = isDisabled ? 'not-allowed' : 'pointer';
     });
 }
 
@@ -262,9 +267,12 @@ function closeModal() {
 
 // Function to load demo stock
 function loadDemoStock(ticker) {
-    if (tickers.length >= 3) return;
-    tickerInput.value = ticker;
-    addTicker();
+    if (tickers.length < 3 && !tickers.includes(ticker)) {
+        tickers.push(ticker);
+        updateTickerDisplay();
+        updateGenerateButton();
+        updateDemoButtons();
+    }
 }
 
 // Function to generate demo report
